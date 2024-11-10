@@ -17,7 +17,13 @@ struct ContentView: View {
     @State var history = ""
     private let maxCharacters = 24
     let columns = Array(repeating: GridItem(.flexible()), count: 4)
-    let allButton = [["C", "/"],["7", "8", "9", "*"], ["4", "5", "6", "-"], ["1", "2", "3", "+"], ["0", ".", "="]]
+    let allButton = [
+                        ["C", "÷"],
+                        ["7", "8", "9", "×"],
+                        ["4", "5", "6", "-"],
+                        ["1", "2", "3", "+"],
+                        ["0", ".", "="]
+                    ]
     var body: some View {
         Spacer()
         Grid(alignment: .bottom, verticalSpacing: 10) {
@@ -89,6 +95,7 @@ struct ContentView: View {
                                     .clipShape(Capsule())
                                     .frame(maxWidth: .infinity, maxHeight: 70)
                                     .foregroundColor(.white)
+                                    
                             }
                             .background(Color.black)
                             .clipShape(Capsule())
@@ -99,13 +106,14 @@ struct ContentView: View {
                 }
             }
         }.padding(.horizontal, 10)
+        
     }
     func actionButton(_ button: String) {
         
             switch button {
             case "C":
                 clearAll()
-            case "+", "-", "*", "/":
+            case "+", "-", "÷", "×":
                 pressAction(button: button)
             case "=":
                 calculate()
@@ -156,7 +164,6 @@ struct ContentView: View {
         if(num1 != nil && binaryOperator != nil){
             if(!isEqual){
                 num2 = Double(result)
-                
             }
             history = zeroTrimming(String(num1!)) + " " + binaryOperator! + " " + zeroTrimming(String(num2!)) + " = "
             
@@ -166,9 +173,9 @@ struct ContentView: View {
                 result = zeroTrimming(String(num1! + num2!))
             case "-":
                 result = zeroTrimming(String(num1! - num2!))
-            case "*":
+            case "×":
                 result = zeroTrimming(String(num1! * num2!))
-            case "/":
+            case "÷":
                 if(num2 == 0.0){
                     clearAll()
                     return
@@ -187,6 +194,7 @@ struct ContentView: View {
         return number
     }
 }
+
 
 #Preview {
     ContentView()
