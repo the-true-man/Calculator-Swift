@@ -128,9 +128,14 @@ struct ContentView: View {
         num1 = nil
         num2 = 0.0
         binaryOperator = nil
+        isEqual = false
+        isOperator = false
         result = "0"
     }
     func addDot() {
+        if(isEqual){
+            clearAll()
+        }
         if(!result.contains(".")){
             result.append(".")
         }
